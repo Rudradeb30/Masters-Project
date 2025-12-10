@@ -10,7 +10,7 @@ MyPrimaryGenerator::MyPrimaryGenerator() : currentIndex(0) {
 
     fParticleGun->SetParticleDefinition(particle);
     fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0., 0., 1.));
-    fParticleGun->SetParticleEnergy(5. * GeV);  /
+    fParticleGun->SetParticleEnergy(10. * GeV);  
 
    
     double xsiz = 2.2 * cm;
@@ -40,4 +40,3 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event* event) {
     fParticleGun->GeneratePrimaryVertex(event);
     ++currentIndex;
 }
-
