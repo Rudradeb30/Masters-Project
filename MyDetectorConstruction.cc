@@ -42,7 +42,7 @@ void MyDetectorConstruction::DefineMaterial() {
 
 G4VPhysicalVolume* MyDetectorConstruction::Construct() {
   // World
-  solidWorld = new G4Box("World", 0.5 * xWorld, 0.5 * yWorld, zWorld);
+    solidWorld = new G4Box("World", 0.5 * xWorld, 0.5 * yWorld, 0.5 * zWorld);
   logicWorld = new G4LogicalVolume(solidWorld, Air, "World");
   physWorld = new G4PVPlacement(0, G4ThreeVector(), logicWorld, "World", nullptr, false, 0, true);
 
@@ -92,16 +92,21 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct() {
   return physWorld;
 }
 
+
 void MyDetectorConstruction::ConstructSDandField() {
   G4SDManager* sdManager = G4SDManager::GetSDMpointer();
-  auto* sd = new MySensitiveDetector("SensitiveDetector");
+
+  auto* sd = new MySensitiveDetector("MySD");
   sdManager->AddNewDetector(sd);
+  G4cout << "[SD] Registered sensitive detector with name: " << sd->GetName() << G4endl;
 
   if (logicDetector) {
     logicDetector->SetSensitiveDetector(sd);
-    G4cout << "[SD] Sensitive detector successfully attached to logicDetector" << G4endl;
+    G4cout << "[SD] Sensitive detector successfully attached to logicDetector ("
+           << logicDetector->GetName() << ")" << G4endl;
   } else {
     G4cerr << "[SD] ERROR: logicDetector is NULL!" << G4endl;
   }
 }
+
 
